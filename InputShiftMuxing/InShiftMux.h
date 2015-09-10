@@ -13,16 +13,17 @@ struct InRegister
     unsigned char AdvancePin;
     unsigned char ReadPin;
 
-}
+};
 
 
-struct InRegister InitInShiftMux(int PowerPin, int LatchPin, int AdvPin, int ReadPin);
+struct InRegister initInShiftMux(int PowerPin, int LatchPin, int AdvPin, int ReadPin);
 
 void refreshReg(struct InRegister InReg);
 
-void ShiftReg(struct InRegister InReg);
+//advances by 1
+void shiftReg(struct InRegister InReg);
 
-void ShiftRegMult(struct InRegister InReg, int NumPlaces);
+void shiftRegMult(struct InRegister InReg, int NumPlaces);
 
 
 #ifdef __cplusplus
