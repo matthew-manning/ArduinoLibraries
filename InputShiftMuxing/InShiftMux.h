@@ -20,7 +20,7 @@ struct InRegister initInShiftMux( int LatchPin, int AdvPin, int ReadPin);
 
 void refreshReg(struct InRegister InReg);
 
-//advances by 1
+//advances by 1, starts at Q7 and goes down to Q0
 void shiftReg(struct InRegister InReg);
 
 void shiftRegMult(struct InRegister InReg, int NumPlaces);
