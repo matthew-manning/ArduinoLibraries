@@ -16,7 +16,7 @@ struct InRegister
 };
 
 
-struct InRegister initInShiftMux(int PowerPin, int LatchPin, int AdvPin, int ReadPin);
+struct InRegister initInShiftMux( int LatchPin, int AdvPin, int ReadPin);
 
 void refreshReg(struct InRegister InReg);
 

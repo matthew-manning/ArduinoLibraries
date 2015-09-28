@@ -13,7 +13,7 @@
 
 
 
-struct InRegister initInShiftMux(int PowerPin, int LatchPin, int AdvPin, int ReadPin)//take pin numbers to setup
+struct InRegister initInShiftMux( int LatchPin, int AdvPin, int ReadPin)//take pin numbers to setup
 {
     struct InRegister NewReg;
 
@@ -25,11 +25,9 @@ struct InRegister initInShiftMux(int PowerPin, int LatchPin, int AdvPin, int Rea
     //set i/o status of pins
     pinMode(LatchPin, OUTPUT);
     pinMode(AdvPin, OUTPUT);
-    pinMode(PowerPin, OUTPUT);
     pinMode(ReadPin, INPUT);//does it need to be set to pull up?
 
     //initial pin states
-    digitalWrite(PowerPin, HIGH);
     digitalWrite(LatchPin, HIGH);
     digitalWrite(AdvPin, LOW);
 
@@ -41,10 +39,13 @@ struct InRegister initInShiftMux(int PowerPin, int LatchPin, int AdvPin, int Rea
 /*refreshs data in reister*/
 void refreshReg(struct InRegister InReg)
 {
-    //pulse latch pin low for 1 micro second
+    //pulse latch pin low for 1 micro second; advance pin needs to be high when this is done
+    digitalWrite(InReg.AdvancePin, HIGH);
+    delayMicroseconds(1);
     digitalWrite(InReg.LatchPin, LOW);
     delayMicroseconds(1);
     digitalWrite(InReg.LatchPin, HIGH);
+    digitalWrite(InReg.AdvancePin, LOW);
 }
 
 /*Shifts regester*/
