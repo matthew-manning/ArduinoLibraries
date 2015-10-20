@@ -48,7 +48,7 @@ void refreshReg(struct InRegister InReg)
     digitalWrite(InReg.AdvancePin, LOW);
 }
 
-/*Shifts regester*/
+/*Shifts regester by 1*/
 void shiftReg(struct InRegister InReg)
 {
     //pulse advance pin high for 1 micro second
@@ -57,12 +57,29 @@ void shiftReg(struct InRegister InReg)
     digitalWrite(InReg.AdvancePin, LOW);
 }
 
+/*scans into array provided*/
+void scanToArray(struct InRegister InReg, int NumPlaces, char * Array)
+{
+    int ScanToArrayIter;//iteration var
+
+    void refreshReg(InReg);//get current data
+
+    for(ScanToArrayIter = 0; ScanToArrayIter < NumPlaces; ScanToArrayIter++)
+    {
+        //store than advance
+        Array[ScanToArrayIter] = digitalRead(InReg.ReadPin);
+        shiftReg(InReg);
+
+    }
+
+}
+
 
 //for a shift more than one place
 void shiftRegMult(struct InRegister InReg, int NumPlaces)
 {
-    int i;
-    for(i = 0; i <NumPlaces;i++)
+    int ShiftRegMultIter;
+    for(ShiftRegMultIter = 0; ShiftRegMultIter <NumPlaces;ShiftRegMultIter++)
     {
         //pulse advance pin high for 1 micro second, for each
         digitalWrite(InReg.AdvancePin, HIGH);
